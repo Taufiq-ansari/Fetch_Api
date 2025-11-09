@@ -1,11 +1,15 @@
-import 'dart:convert';
-
-import 'package:fetch_api/itemwidgets.dart';
+import 'package:fetch_api/pages/homepage.dart';
+import 'package:fetch_api/provider.dart/product_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ProductsProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,49 +21,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       themeMode: ThemeMode.light,
       home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List getProducts = [];
-
-  Future fetchData() async {
-    final url = "https://dummyjson.com/products";
-    final response = await http.get(Uri.parse(url));
-    var decodedData = jsonDecode(response.body);
-    getProducts = decodedData["products"];
-    print(getProducts);
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("fetch app"),
-      ),
-      body: ListView.builder(
-          itemCount: getProducts.length,
-          itemBuilder: (context, index) {
-            final product = getProducts[index];
-            return ItemWidgets(
-              products: product,
-            );
-          }),
     );
   }
 }
