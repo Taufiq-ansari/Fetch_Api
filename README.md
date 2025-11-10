@@ -55,7 +55,7 @@ lib/
 
 
 ## 📸Screenshot
-![Screenshot]("C:\Users\tarra\Downloads\Screenshot.png")
+![Screenshot]("aseets/images/screenshot.png")
 
 
 #▶️ How to Run
