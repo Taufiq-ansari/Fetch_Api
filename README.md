@@ -55,7 +55,8 @@ lib/
 
 
 ## 📸Screenshot
-![Project Screenshot](assets/images/screenshot.png)
+![Screenshot](assets/image/screenshot.png)
+
 
 #▶️ How to Run
 
