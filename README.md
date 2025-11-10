@@ -55,7 +55,7 @@ lib/
 
 
 ## 📸Screenshot
-![Screenshot]("aseets/images/screenshot.png")
+![Screenshot](https://github.com/Taufiq-ansari/Fetch_Api/blob/main/assets/images/Screenshot.png)
 
 
 #▶️ How to Run
