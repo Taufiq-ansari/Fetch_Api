@@ -25,6 +25,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: TextField(
           controller: _searchController,
+          onChanged: (value) {
+            context.read<ProductsProvider>().onsearch(value);
+          },
         ),
         actions: [
           IconButton(

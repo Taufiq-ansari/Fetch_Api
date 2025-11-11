@@ -32,24 +32,60 @@ class ProductsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  onsearch(String query) {
+//  search method...
+  // onsearch(String query) {
+  //   notifyListeners();
+  //   if (query.isEmpty) {
+  //     _product = List.from(originalProducts);
+  //     notifyListeners();
+  //     return;
+  //   }
+
+  //   if (query.length == 1) {
+  //     _product = originalProducts.where((item) {
+  //       return item.title.toLowerCase().startsWith(query.toLowerCase());
+  //     }).toList();
+  //     notifyListeners();
+  //     return;
+  //   }
+
+  //   _product = originalProducts.where((items) {
+  //     return items.title.toLowerCase().contains(query.toLowerCase());
+  //   }).toList();
+
+  //   notifyListeners();
+  // }
+  onsearch(String query) async {
+    _isLoading = true;
+    notifyListeners();
+
+    query = query.toLowerCase();
+
+    // Reset to full list when query empty
     if (query.isEmpty) {
-      originalProducts = List.from(_product);
+      _product = List.from(originalProducts);
+      _isLoading = false;
       notifyListeners();
       return;
     }
 
+    // First letter search using startsWith
     if (query.length == 1) {
       _product = originalProducts.where((item) {
-        return item.title.toLowerCase().startsWith(query.toLowerCase());
+        return item.title.toLowerCase().startsWith(query);
       }).toList();
+
+      _isLoading = false;
       notifyListeners();
       return;
     }
 
-    _product = originalProducts.where((items) {
-      return items.title.toLowerCase().contains(query.toLowerCase());
+    // Normal contains search
+    _product = originalProducts.where((item) {
+      return item.title.toLowerCase().contains(query);
     }).toList();
+
+    _isLoading = false;
     notifyListeners();
   }
 }
