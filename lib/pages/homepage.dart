@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  // var getProducts = [];
+  HomePage({super.key});
+  final TextEditingController _searchController = TextEditingController();
+  // var getProducts = []
 
   // Future fetchData() async {
   //   final url = "https://dummyjson.com/products";
@@ -23,7 +23,18 @@ class HomePage extends StatelessWidget {
     print("building build");
     return Scaffold(
       appBar: AppBar(
-        title: Text("fetch app"),
+        title: TextField(
+          controller: _searchController,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Provider.of<ProductsProvider>(context, listen: false)
+              provider.onsearch(_searchController.text);
+            },
+            icon: Icon(Icons.search),
+          ),
+        ],
       ),
       body: provider.isLoading
           ? Center(child: CircularProgressIndicator())

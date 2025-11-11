@@ -13,6 +13,8 @@ class ProductsProvider extends ChangeNotifier {
 
 // get
   List<ProductsItems> get product => _product;
+
+  List<ProductsItems> originalProducts = [];
   bool get isLoading => _isLoading;
 
 // method
@@ -22,10 +24,32 @@ class ProductsProvider extends ChangeNotifier {
     notifyListeners();
     try {
       _product = await _service.fetchData();
+      originalProducts = List.from(_product);
     } catch (e) {
       throw ("exception $e");
     }
     _isLoading = false;
+    notifyListeners();
+  }
+
+  onsearch(String query) {
+    if (query.isEmpty) {
+      originalProducts = List.from(_product);
+      notifyListeners();
+      return;
+    }
+
+    if (query.length == 1) {
+      _product = originalProducts.where((item) {
+        return item.title.toLowerCase().startsWith(query.toLowerCase());
+      }).toList();
+      notifyListeners();
+      return;
+    }
+
+    _product = originalProducts.where((items) {
+      return items.title.toLowerCase().contains(query.toLowerCase());
+    }).toList();
     notifyListeners();
   }
 }
