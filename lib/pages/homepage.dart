@@ -32,7 +32,6 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // Provider.of<ProductsProvider>(context, listen: false)
               provider.onsearch(_searchController.text);
             },
             icon: Icon(Icons.search),
